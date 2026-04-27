@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* =========================
+   CSS RESET (Modern)
+========================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: 50px;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements inherit font */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+
+/* =========================
+   ROOT VARIABLES (THEME)
+========================= */
+:root {
+  /* Colors */
+  --color-bg: #fafafa;
+  --color-primary: #1a1a1a;
+
+  /* Typography */
+  --font-sans: 'Roboto Mono', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 4rem;
+
+  /* Borders */
+  --border-xs: 1px;
+  --border-sm: 2px;
+  --border-md: 4px;
+  --border-lg: 8px;
+  --border-xl: 16px;
+}
+
+
+/* =========================
+   BASE STYLES
+========================= */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Paragraph spacing */
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+
+/* =========================
+   BUTTON STYLES
+========================= */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-primary);
+  color: white;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.1);
+}
+
+select {
+  border: var(--border-sm) solid #7b7b7b;
+  border-radius: var(--border-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: white;
+  color: var(--color-primary);
+}
+
+option:hover {
+  background-color: #7b7b7b;
+}
+
+
+/* =========================
+   UTILITIES
+========================= */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}

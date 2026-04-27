@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+  <title>CPU Scheduling Algorithm</title>
+</head>
+
+<body>
+  <header class="title-section">
+    <img width="64" height="64" src="https://img.icons8.com/sf-black/64/electronics.png" alt="electronics" />
+    <h1>CPU Scheduling Algorithm</h1>
+  </header>
+  <main>
+    <div class="user-input card">
+      <h2>Scheduling Algorithm</h2>
+      <select name="sched-algo" id="sched-algo">
+        <option value="fcfs">First-Come, First-Served (FCFS)</option>
+        <option value="sjf">Shortest Job First (SJF)</option>
+        <option value="srt">Shortest Remaining Time First (SRT)</option>
+        <option value="rr">Round Robin (RR)</option>
+        <option value="priority">Priority Scheduling</option>
+        <option value="priority-rr">Priority Scheduling with Round Robin</option>
+      </select>
+      <hr>
+      <table id="input-table" class="sched-table">
+        <thead>
+          <tr>
+            <td>Process</td>
+            <td>Arrival Time</td>
+            <td>Burst Time</td>
+            <td>Priority</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>P1</td>
+            <td>0</td>
+            <td>2</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>P2</td>
+            <td>0</td>
+            <td>1</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>P3</td>
+            <td>0</td>
+            <td>8</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>P4</td>
+            <td>0</td>
+            <td>4</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="action-btns">
+        <button id="remove-row-btn">-</button>
+        <button id="add-row-btn">+</button>
+      </div>
+      <div class="btn-grp">
+        <button id="clear-btn">Clear</button>
+        <button id="process-btn">Process</button>
+      </div>
+    </div>
+    <div class="results card">
+      <div class="subtitle-section">
+        <h3>Scheduling Algorithm</h3>
+        <h2>First-Come First Serve (FCFS)</h2>
+      </div>
+      <div class="table-section">
+        <h4>Process Scheduling Table</h4>
+        <table id="result-table" class="sched-table">
+          <thead>
+            <tr>
+              <td>Process</td>
+              <td>Arrival Time</td>
+              <td>Burst Time</td>
+              <td>Priority</td>
+              <td>Completion Time</td>
+              <td>Waiting Time</td>
+              <td>Turnaround Time</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P1</td>
+              <td>0</td>
+              <td>2</td>
+              <td>0</td>
+              <td>2</td>
+              <td>0</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>P2</td>
+              <td>0</td>
+              <td>1</td>
+              <td>0</td>
+              <td>3</td>
+              <td>2</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>P3</td>
+              <td>0</td>
+              <td>8</td>
+              <td>0</td>
+              <td>11</td>
+              <td>3</td>
+              <td>11</td>
+            </tr>
+            <tr>
+              <td>P4</td>
+              <td>0</td>
+              <td>4</td>
+              <td>0</td>
+              <td>15</td>
+              <td>11</td>
+              <td>15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="gantt-chart-section">
+        <h4>Gantt Chart</h4>
+        <div id="gantt-chart-container">
+          <table id="gantt-chart">
+            <tbody>
+              <td>P1</td>
+              <td>P2</td>
+              <td>P3</td>
+              <td>P4</td>
+            </tbody>
+            <tbody>
+              <td>0</td>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+              <td>4</td>
+            </tbody>
+          </table>
+        </div>
+        <div class="sim-grp"><button id="sim-btn">Simulate</button></div>
+      </div>
+    </div>
+  </main>
+
+
+  <script></script>
+</body>
+
+</html>

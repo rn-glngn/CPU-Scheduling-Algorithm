@@ -1,0 +1,158 @@
+@import url('globals.css');
+
+
+header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+
+/* Scheduling Cards */
+
+main {
+  padding: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: 35% 65%;
+  column-gap: var(--spacing-lg);
+}
+
+
+.card {
+  background-color: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-lg);
+  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.5);
+  height: 500px;
+}
+
+
+/* User Input */
+
+select {
+  margin-bottom: var(--spacing-md);
+}
+
+.user-input hr {
+  margin-bottom: var(--spacing-md);
+}
+
+#input-table {
+  margin-bottom: var(--spacing-sm);
+}
+
+.action-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.action-btns button {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-xl);
+  border: var(--border-xs) solid var(--color-primary);
+  background-color: white;
+  color: var(--color-primary);
+}
+
+.action-btns button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-grp {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.btn-grp #clear-btn {
+  border: var(--border-xs) solid var(--color-primary);
+  background-color: white;
+  color: var(--color-primary);
+}
+
+
+/* Scheduling Table Styles */
+
+.sched-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border: var(--color-primary) solid;
+  border-width: var(--border-md);
+  text-align: center;
+}
+
+.sched-table thead {
+  border-bottom: var(--color-primary) solid;
+  border-width: var(--border-md);
+  font-weight: bold;
+  font-style: italic;
+}
+
+.sched-table td {
+  border: var(--color-primary) solid;
+  border-width: var(--border-xs);
+  border-right: var(--border-sm) solid;
+}
+
+
+/* Results Section */
+
+.subtitle-section {
+  margin-bottom: var(--spacing-lg);
+  border-bottom: var(--border-xs) solid #7b7b7b;
+  padding-bottom: var(--spacing-sm);
+}
+
+.subtitle-section h3 {
+  font-weight: normal;
+  font-style: italic;
+}
+
+.subtitle-section h2 {
+  font-size: 1.75rem;
+  font-weight: bolder;
+}
+
+
+/* Scheduling Table */
+
+h4 {
+  font-weight: bold;
+}
+
+
+/* Gantt Chart Section */
+
+#gantt-chart {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#gantt-chart tbody:first-child td {
+  text-align: center;
+  border: var(--border-md) solid var(--color-primary);
+}
+
+#gantt-chart tbody:last-child td {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+#gantt-chart tbody:last-child td:last-child {
+  text-align: right;
+  width: 1%;
+}
+
+.sim-grp {
+  font-size: 0.75rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: flex;
+  justify-content: flex-end;
+}

@@ -11,7 +11,7 @@ header {
 /* Scheduling Cards */
 
 main {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
   display: grid;
   grid-template-columns: 35% 65%;
   column-gap: var(--spacing-lg);
@@ -23,7 +23,8 @@ main {
   padding: var(--spacing-lg);
   border-radius: var(--border-lg);
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.5);
-  height: 500px;
+  height: 100%;
+  min-height: 500px;
 }
 
 
@@ -35,6 +36,17 @@ select {
 
 .user-input hr {
   margin-bottom: var(--spacing-md);
+}
+
+#time-quantum {
+  width: 50%;
+  text-align: left;
+  border: var(--border-sm) solid #7b7b7b;
+  border-radius: var(--border-lg);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  padding-left: var(--spacing-md);
+  background-color: white;
+  color: var(--color-primary);
 }
 
 #input-table {
@@ -82,8 +94,7 @@ select {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  border: var(--color-primary) solid;
-  border-width: var(--border-md);
+  border: var(--border-md) solid var(--color-primary);
   text-align: center;
 }
 
@@ -94,12 +105,11 @@ select {
   font-style: italic;
 }
 
-.sched-table td {
-  border: var(--color-primary) solid;
-  border-width: var(--border-xs);
+.sched-table td,
+.sched-table th {
+  border: var(--border-xs) solid var(--color-primary);
   border-right: var(--border-sm) solid;
 }
-
 
 /* Results Section */
 
@@ -120,10 +130,63 @@ select {
 }
 
 
-/* Scheduling Table */
+/* Results Scheduling Table */
 
 h4 {
   font-weight: bold;
+}
+
+#result-table {
+  border: none;
+}
+
+#result-table td,
+#result-table th {
+  border: var(--border-xs) solid var(--color-primary);
+  border-right: var(--border-sm) solid;
+  border-bottom: var(--border-sm) solid;
+  padding: var(--spacing-xs) 0;
+}
+
+#result-table th {
+  padding: 0 var(--spacing-xs);
+}
+
+#result-table td:first-child {
+  border-left: var(--border-md) solid var(--color-primary);
+}
+
+#result-table th:last-child,
+#result-table td:last-child {
+  border-right: var(--border-md) solid var(--color-primary);
+}
+
+#result-table thead {
+  border: var(--border-md) solid var(--color-primary);
+}
+
+#result-table tbody tr:last-child {
+  border-top: var(--border-md) solid var(--color-primary);
+}
+
+#result-table tr:last-child td:first-child {
+  border: none;
+}
+
+#result-table tr:last-child td:last-child {
+  border-right: var(--border-md) solid var(--color-primary);
+  border-bottom: var(--border-md) solid var(--color-primary);
+}
+
+#result-table tr:last-child td:nth-last-child(2) {
+  border-left: var(--border-md) solid var(--color-primary);
+  border-bottom: var(--border-md) solid var(--color-primary);
+}
+
+#metrics td:first-child {
+  font-style: italic;
+  text-align: right;
+  padding-right: var(--spacing-sm);
 }
 
 

@@ -20,7 +20,9 @@ body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  padding: 50px;
+  padding: 40px 50px;
+  touch-action: manipulation;
+
 }
 
 /* Remove default list styles */
@@ -61,6 +63,8 @@ select {
   /* Colors */
   --color-bg: #fafafa;
   --color-primary: #1a1a1a;
+  /* color-scheme: light dark; */
+
 
   /* Typography */
   --font-sans: 'Roboto Mono', sans-serif;
@@ -86,6 +90,8 @@ select {
 ========================= */
 body {
   font-family: var(--font-sans);
+  /* background-color: light-dark(var(--color-bg), var(--color-primary));
+  color: light-dark(var(--color-primary), var(--color-bg)); */
   background-color: var(--color-bg);
   color: var(--color-primary);
 }
@@ -147,4 +153,30 @@ option:hover {
 
 .hidden {
   display: none;
+}
+
+/* ======================
+   CUSTOM COMPONENT STYLES
+========================= */
+
+input[type="number"] {
+  width: 100%;
+  padding: var(--spacing-xs);
+  text-align: center;
+  border: none;
+}
+
+input[type="number"]:active,
+#input-table input[type="number"]:focus {
+  outline: none;
+  background-color: var(--color-primary);
+  opacity: 0.75;
+  color: var(--color-bg);
+  font-weight: bold;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

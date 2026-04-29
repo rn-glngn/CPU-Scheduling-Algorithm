@@ -3,11 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
-  <script src="main.js" defer></script>
   <title>CPU Scheduling Algorithm</title>
+  <link type="image/png" sizes="96x96" rel="icon" href=".../icons8-cpu-sf-black-96.png">
+  <script src="../js/main.js" defer></script>
+  <!-- <script src="../js/inputs/getInput.js" defer></script> -->
+
 </head>
 
 <body>
@@ -17,6 +20,7 @@
   </header>
   <main>
     <div class="user-input card">
+      <!-- Choose the preferred scheduling algorithm -->
       <h2>Scheduling Algorithm</h2>
       <select name="sched-algo" id="sched-algo">
         <option value="fcfs">First-Come, First-Served (FCFS)</option>
@@ -27,39 +31,30 @@
         <option value="priority-rr">Priority Scheduling with Round Robin</option>
       </select>
       <hr>
+      <!-- Additional input for the Round Robin (RR) -->
+      <h3>Time Quantum</h3>
+      <input type="number" id="time-quantum" class="sched-algo" min="1" placeholder="2">
       <table id="input-table" class="sched-table">
         <thead>
           <tr>
-            <td>Process</td>
-            <td>Arrival Time</td>
-            <td>Burst Time</td>
-            <td>Priority</td>
+            <th>Process</th>
+            <th>Arrival Time</th>
+            <th>Burst Time</th>
+            <th>Priority</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="table-body">
           <tr>
             <td>P1</td>
-            <td>0</td>
-            <td>2</td>
-            <td>0</td>
+            <td><input type="number" placeholder="0" min="0"></td>
+            <td><input type="number" placeholder="1" min="1"></td>
+            <td><input type="number" placeholder="0" min="0"></td>
           </tr>
           <tr>
             <td>P2</td>
-            <td>0</td>
-            <td>1</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>P3</td>
-            <td>0</td>
-            <td>8</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>P4</td>
-            <td>0</td>
-            <td>4</td>
-            <td>0</td>
+            <td><input type="number" placeholder="0" min="0"></td>
+            <td><input type="number" placeholder="1" min="1"></td>
+            <td><input type="number" placeholder="0" min="0"></td>
           </tr>
         </tbody>
       </table>
@@ -72,6 +67,8 @@
         <button id="process-btn">Process</button>
       </div>
     </div>
+
+    <!-- Results Section with Table, Metrics, and Gantt Chart -->
     <div class="results card">
       <div class="subtitle-section">
         <h3>Scheduling Algorithm</h3>
@@ -82,13 +79,13 @@
         <table id="result-table" class="sched-table">
           <thead>
             <tr>
-              <td>Process</td>
-              <td>Arrival Time</td>
-              <td>Burst Time</td>
-              <td>Priority</td>
-              <td>Completion Time</td>
-              <td>Waiting Time</td>
-              <td>Turnaround Time</td>
+              <th>Process</th>
+              <th>Arrival Time</th>
+              <th>Burst Time</th>
+              <th>Priority</th>
+              <th>Completion Time</th>
+              <th>Waiting Time</th>
+              <th>Turnaround Time</th>
             </tr>
           </thead>
           <tbody>
@@ -127,6 +124,11 @@
               <td>15</td>
               <td>11</td>
               <td>15</td>
+            </tr>
+            <tr id="metrics">
+              <td colspan="5">Average</td>
+              <td colspan="1"></td>
+              <td colspan="1"></td>
             </tr>
           </tbody>
         </table>

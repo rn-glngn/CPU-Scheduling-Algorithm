@@ -1,5 +1,4 @@
 // Handles adding and removing rows in the input table
-
 const tableBody = document.getElementById("table-body");
 const addBtn = document.getElementById("add-row-btn");
 const removeBtn = document.getElementById("remove-row-btn");
@@ -30,7 +29,6 @@ removeBtn.addEventListener("click", () => {
 });
 
 // Extracts input data from the table and returns an array of process objects
-
 function parseOrZero(value) {
   return value === "" ? 0 : parseInt(value);
 }

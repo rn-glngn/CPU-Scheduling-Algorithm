@@ -23,7 +23,7 @@
       <select name="sched-algo" id="sched-algo">
         <option value="fcfs">First-Come, First-Served (FCFS)</option>
         <option value="sjf">Shortest Job First (SJF)</option>
-        <option value="srt">Shortest Remaining Time First (SRT)</option>
+        <option value="srtf">Shortest Remaining Time First (SRTF)</option>
         <option value="rr">Round Robin (RR)</option>
         <option value="priority">Priority Scheduling</option>
         <option value="priority-rr">Priority Scheduling with Round Robin</option>
@@ -137,21 +137,8 @@
       <div class="gantt-chart-section">
         <h4>Gantt Chart</h4>
         <div id="gantt-chart-container">
-          <table id="gantt-chart">
-            <tbody>
-              <td>P1</td>
-              <td>P2</td>
-              <td>P3</td>
-              <td>P4</td>
-            </tbody>
-            <tbody>
-              <td>0</td>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-            </tbody>
-          </table>
+          <div id="gantt-bar-container"></div>
+          <div id="gantt-timeline"></div>
         </div>
         <div class="sim-grp"><button id="sim-btn">Simulate</button></div>
       </div>

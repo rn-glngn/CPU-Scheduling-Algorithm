@@ -192,25 +192,31 @@ h4 {
 
 /* Gantt Chart Section */
 
-#gantt-chart {
+#gantt-bar-container {
+  display: flex;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-#gantt-chart tbody:first-child td {
-  text-align: center;
+  height: 50px;
   border: var(--border-md) solid var(--color-primary);
+  overflow: hidden;
 }
 
-#gantt-chart tbody:last-child td {
-  font-size: 0.9rem;
+.gantt-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
   font-style: italic;
+  border-right: var(--border-sm) solid var(--color-primary);
+  color: var(--color-bg);
+  flex: 1 1 0%;
 }
 
-#gantt-chart tbody:last-child td:last-child {
-  text-align: right;
-  width: 1%;
+#gantt-timeline {
+  display: flex;
+  width: 100%;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  position: relative;
 }
 
 .sim-grp {

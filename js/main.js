@@ -1,6 +1,13 @@
 import { getInput, getTimeQuantum } from "./inputs/getInput.js";
 import { validateInput } from "./inputs/validateInput.js";
 
+import { fcfs } from "./algorithms/fcfs.js";
+import { sjf } from "./algorithms/sjf.js";
+import { srtf } from "./algorithms/srtf.js";
+
+import { renderTable } from "./output/renderTable.js";
+import { renderGantt } from "./output/renderGantt.js";
+
 export function toggleInputField(algo) {
   const selected = algoSelect.value;
   const priorityCells = document.querySelectorAll(".prio-col");
@@ -61,16 +68,22 @@ clearBtn.addEventListener("click", () => {
 
 // Main entry point - handles button click to process input data
 document.getElementById("process-btn").addEventListener("click", () => {
-  const algorithm = document.getElementById("sched-algo").value;
   const processes = getInput();
 
   if (!validateInput(processes)) return;
 
-  let timeQuantum = null;
+  const algo = document.getElementById("sched-algo").value;
 
-  if (algorithm === "rr" || algorithm === "priority-rr") {
-    timeQuantum = getTimeQuantum();
+  let results;
 
-    if (timeQuantum === null) return;
+  if (algo === "fcfs") {
+    results = fcfs(processes);
+  } else if (algo === "sjf") {
+    results = sjf(processes);
+  } else if (algo === "srtf") {
+    results = srtf(processes);
   }
+
+  renderTable(results);
+  renderGantt(results.ganttChart);
 });

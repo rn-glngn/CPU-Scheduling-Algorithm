@@ -3,14 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
   <title>CPU Scheduling Algorithm</title>
   <link type="image/png" sizes="96x96" rel="icon" href=".../icons8-cpu-sf-black-96.png">
-  <script src="../js/main.js" defer></script>
-  <!-- <script src="../js/inputs/getInput.js" defer></script> -->
-
+  <script type="module" src="../js/main.js" defer></script>
 </head>
 
 <body>
@@ -32,15 +30,17 @@
       </select>
       <hr>
       <!-- Additional input for the Round Robin (RR) -->
-      <h3>Time Quantum</h3>
-      <input type="number" id="time-quantum" class="sched-algo" min="1" placeholder="2">
+      <div id="time-quantum-container" style="display: none;">
+        <h3>Time Quantum</h3>
+        <input type="number" id="time-quantum" class="sched-algo" min="1" placeholder="2">
+      </div>
       <table id="input-table" class="sched-table">
         <thead>
           <tr>
             <th>Process</th>
             <th>Arrival Time</th>
             <th>Burst Time</th>
-            <th>Priority</th>
+            <th class="prio-col hide-col">Priority</th>
           </tr>
         </thead>
         <tbody id="table-body">
@@ -48,13 +48,13 @@
             <td>P1</td>
             <td><input type="number" placeholder="0" min="0"></td>
             <td><input type="number" placeholder="1" min="1"></td>
-            <td><input type="number" placeholder="0" min="0"></td>
+            <td class="prio-col hide-col"><input type="number" placeholder="0" min="0"></td>
           </tr>
           <tr>
             <td>P2</td>
             <td><input type="number" placeholder="0" min="0"></td>
             <td><input type="number" placeholder="1" min="1"></td>
-            <td><input type="number" placeholder="0" min="0"></td>
+            <td class="prio-col hide-col"><input type="number" placeholder="0" min="0"></td>
           </tr>
         </tbody>
       </table>

@@ -147,11 +147,9 @@ option:hover {
 /* =========================
    UTILITIES
 ========================= */
-.text-center {
-  text-align: center;
-}
 
-.hidden {
+.hidden,
+.hide-col {
   display: none;
 }
 

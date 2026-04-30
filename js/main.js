@@ -74,6 +74,9 @@ document.getElementById("process-btn").addEventListener("click", () => {
 
   const algo = document.getElementById("sched-algo").value;
 
+  document.getElementById("algo-choice").textContent =
+    algoSelect.options[algoSelect.selectedIndex].text;
+
   let results;
 
   if (algo === "fcfs") {

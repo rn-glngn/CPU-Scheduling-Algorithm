@@ -150,6 +150,7 @@ h4 {
 
 #result-table th {
   padding: 0 var(--spacing-xs);
+  font-size: 0.9rem;
 }
 
 #result-table td:first-child {

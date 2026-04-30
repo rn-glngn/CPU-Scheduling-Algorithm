@@ -33,15 +33,51 @@ export function srtf(processes) {
     );
 
     if (available.length === 0) {
-      time++;
+      // CLOSE current running segment FIRST
+      if (lastProcess !== null) {
+        ganttChart.push({
+          id: lastProcess,
+          start: segmentStart,
+          end: time,
+          duration: time - segmentStart,
+        });
+
+        lastProcess = null;
+      }
+
+      const nextArrival = Math.min(
+        ...remaining
+          .filter((p) => !p.completed && p.arrival > time)
+          .map((p) => p.arrival),
+      );
+
+      // merge IDLE segments (avoid duplicates)
+      const last = ganttChart[ganttChart.length - 1];
+
+      if (last && last.id === "IDLE") {
+        last.end = nextArrival;
+        last.duration = last.end - last.start;
+      } else {
+        ganttChart.push({
+          id: "IDLE",
+          start: time,
+          end: nextArrival,
+          duration: nextArrival - time,
+        });
+      }
+
+      time = nextArrival;
       continue;
     }
 
-    // pick shortest remaining time
-    available.sort((a, b) => a.remaining - b.remaining);
+    available.sort((a, b) => {
+      if (a.remaining === b.remaining) {
+        return a.arrival - b.arrival;
+      }
+      return a.remaining - b.remaining;
+    });
     const current = available[0];
 
-    // track gantt merging (important for clean UI)
     if (lastProcess !== current.id) {
       if (lastProcess !== null) {
         ganttChart.push({
@@ -56,26 +92,22 @@ export function srtf(processes) {
       segmentStart = time;
     }
 
-    // execute 1 unit
     current.remaining--;
     time++;
 
-    // if finished
     if (current.remaining === 0) {
       current.completed = true;
       completed++;
 
-      const finishTime = time;
-
       const p = tableMap.get(current.id);
-      p.completion = finishTime;
+      p.completion = time;
       p.turnaround = p.completion - p.arrival;
       p.waiting = p.turnaround - p.burst;
     }
   }
 
   // push last gantt segment
-  if (lastProcess !== null) {
+  if (lastProcess !== null && segmentStart !== time) {
     ganttChart.push({
       id: lastProcess,
       start: segmentStart,

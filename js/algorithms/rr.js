@@ -42,14 +42,35 @@ export function rr(processes, timeQuantum) {
 
     // if queue empty → CPU idle
     if (queue.length === 0) {
+      // close previous running segment before idling
+      if (lastProcess !== null) {
+        ganttChart.push({
+          id: lastProcess,
+          start: segmentStart,
+          end: time,
+          duration: time - segmentStart,
+        });
+        lastProcess = null;
+      }
+
+      // if no more processes left to arrive, stop
+      if (i >= n) break;
+
       const nextArrival = remaining[i].arrival;
 
-      ganttChart.push({
-        id: "IDLE",
-        start: time,
-        end: nextArrival,
-        duration: nextArrival - time,
-      });
+      // merge consecutive idle segments
+      const last = ganttChart[ganttChart.length - 1];
+      if (last && last.id === "IDLE") {
+        last.end = nextArrival;
+        last.duration = last.end - last.start;
+      } else {
+        ganttChart.push({
+          id: "IDLE",
+          start: time,
+          end: nextArrival,
+          duration: nextArrival - time,
+        });
+      }
 
       time = nextArrival;
       continue;

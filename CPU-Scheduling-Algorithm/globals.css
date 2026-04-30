@@ -63,7 +63,6 @@ select {
   /* Colors */
   --color-bg: #fafafa;
   --color-primary: #1a1a1a;
-  /* color-scheme: light dark; */
 
 
   /* Typography */
@@ -90,8 +89,6 @@ select {
 ========================= */
 body {
   font-family: var(--font-sans);
-  /* background-color: light-dark(var(--color-bg), var(--color-primary));
-  color: light-dark(var(--color-primary), var(--color-bg)); */
   background-color: var(--color-bg);
   color: var(--color-primary);
 }

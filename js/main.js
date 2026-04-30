@@ -5,6 +5,14 @@ import { fcfs } from "./algorithms/fcfs.js";
 import { sjf } from "./algorithms/sjf.js";
 import { srtf } from "./algorithms/srtf.js";
 import { rr } from "./algorithms/rr.js";
+import {
+  priorityPreemptive,
+  priorityNonPreemptive,
+} from "./algorithms/priority.js";
+import {
+  priorityRRPreemptive,
+  priorityRRNonPreemptive,
+} from "./algorithms/priorityRR.js";
 
 import { renderTable } from "./output/renderTable.js";
 import { renderGantt } from "./output/renderGantt.js";
@@ -29,6 +37,14 @@ export function toggleInputField(algo) {
   });
 }
 
+export function togglePreemptiveInput(algo) {
+  const container = document.getElementById("preemptive-container");
+
+  const show = algo.includes("priority");
+
+  container.style.display = show ? "block" : "none";
+}
+
 // Show/hide input controls based on selected algorithm
 const algoSelect = document.getElementById("sched-algo");
 const tqContainer = document.getElementById("time-quantum-container");
@@ -38,6 +54,7 @@ algoSelect.addEventListener("change", () => {
   const selected = algoSelect.value;
 
   toggleInputField(selected);
+  togglePreemptiveInput(selected);
 });
 
 // Clear input table and reset to default state
@@ -74,6 +91,7 @@ document.getElementById("process-btn").addEventListener("click", () => {
   if (!validateInput(processes)) return;
 
   const algo = document.getElementById("sched-algo").value;
+  const isPreemptive = document.getElementById("preemptive-toggle").checked;
 
   document.getElementById("algo-choice").textContent =
     algoSelect.options[algoSelect.selectedIndex].text;
@@ -90,6 +108,16 @@ document.getElementById("process-btn").addEventListener("click", () => {
     const timeQuantum = getTimeQuantum();
     if (timeQuantum === null) return;
     results = rr(processes, timeQuantum);
+  } else if (algo === "priority") {
+    results = isPreemptive
+      ? priorityPreemptive(processes)
+      : priorityNonPreemptive(processes);
+  } else if (algo === "priority-rr") {
+    const timeQuantum = getTimeQuantum();
+    if (timeQuantum === null) return;
+    results = isPreemptive
+      ? priorityRRPreemptive(processes, timeQuantum)
+      : priorityRRNonPreemptive(processes, timeQuantum);
   }
 
   renderTable(results);

@@ -11,7 +11,7 @@ export function renderTable(results) {
       <td>${p.id}</td>
       <td>${p.arrival}</td>
       <td>${p.burst}</td>
-      <td>${p.priority ?? 0}</td>
+      <td>${p.priority ?? "-"}</td>
       <td>${p.completion}</td>
       <td>${p.waiting}</td>
       <td>${p.turnaround}</td>

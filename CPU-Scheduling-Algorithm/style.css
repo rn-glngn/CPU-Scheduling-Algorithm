@@ -31,10 +31,11 @@ main {
 /* User Input */
 
 select {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
 }
 
 .user-input hr {
+  margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-md);
 }
 

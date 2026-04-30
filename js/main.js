@@ -4,6 +4,7 @@ import { validateInput } from "./inputs/validateInput.js";
 import { fcfs } from "./algorithms/fcfs.js";
 import { sjf } from "./algorithms/sjf.js";
 import { srtf } from "./algorithms/srtf.js";
+import { rr } from "./algorithms/rr.js";
 
 import { renderTable } from "./output/renderTable.js";
 import { renderGantt } from "./output/renderGantt.js";
@@ -85,6 +86,10 @@ document.getElementById("process-btn").addEventListener("click", () => {
     results = sjf(processes);
   } else if (algo === "srtf") {
     results = srtf(processes);
+  } else if (algo === "rr") {
+    const timeQuantum = getTimeQuantum();
+    if (timeQuantum === null) return;
+    results = rr(processes, timeQuantum);
   }
 
   renderTable(results);

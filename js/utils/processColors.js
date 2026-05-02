@@ -1,13 +1,13 @@
 const processColors = {};
 
 const retroPalette = [
-  [180, 30, 35], // teal
-  [30, 40, 38], // amber
-  [260, 25, 40], // violet
-  [140, 25, 35], // green
-  [210, 20, 40], // slate blue
-  [10, 35, 38], // coral
-  [200, 15, 25], // steel
+  [180, 35, 45], // teal (brighter, more vivid)
+  [30, 50, 45], // amber (pops more)
+  [260, 35, 48], // violet (less dull)
+  [140, 35, 42], // green (cleaner)
+  [210, 30, 48], // slate blue (more visible)
+  [10, 45, 45], // coral (warmer)
+  [50, 65, 40], // darker golden yellow
 ];
 
 function normalizeId(id) {

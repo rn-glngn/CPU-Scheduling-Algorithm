@@ -50,7 +50,7 @@ export function togglePreemptiveInput(algo) {
 const algoSelect = document.getElementById("sched-algo");
 const tqContainer = document.getElementById("time-quantum-container");
 const prioColElems = document.querySelectorAll(".prio-col");
-let lastGantt = [];
+let currentGantt = [];
 
 algoSelect.addEventListener("change", () => {
   const selected = algoSelect.value;
@@ -136,9 +136,10 @@ document.getElementById("process-btn").addEventListener("click", () => {
 
   renderTable(results);
   renderGantt(results.ganttChart);
-  lastGantt = results.ganttChart;
+  currentGantt = results.ganttChart;
 });
 
 document.getElementById("sim-btn").addEventListener("click", () => {
-  simulateGantt(lastGantt);
+  if (!currentGantt.length) return;
+  simulateGantt(currentGantt);
 });

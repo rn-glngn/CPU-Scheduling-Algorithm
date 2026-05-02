@@ -16,6 +16,7 @@ import {
 
 import { renderTable } from "./output/renderTable.js";
 import { renderGantt } from "./output/renderGantt.js";
+import { simulateGantt } from "./output/simulateGantt.js";
 
 export function toggleInputField(algo) {
   const selected = algoSelect.value;
@@ -49,6 +50,7 @@ export function togglePreemptiveInput(algo) {
 const algoSelect = document.getElementById("sched-algo");
 const tqContainer = document.getElementById("time-quantum-container");
 const prioColElems = document.querySelectorAll(".prio-col");
+let lastGantt = [];
 
 algoSelect.addEventListener("change", () => {
   const selected = algoSelect.value;
@@ -93,8 +95,20 @@ document.getElementById("process-btn").addEventListener("click", () => {
   const algo = document.getElementById("sched-algo").value;
   const isPreemptive = document.getElementById("preemptive-toggle").checked;
 
-  document.getElementById("algo-choice").textContent =
-    algoSelect.options[algoSelect.selectedIndex].text;
+  const baseText = algoSelect.options[algoSelect.selectedIndex].text;
+
+  document.getElementById("algo-choice").childNodes[0].textContent =
+    baseText + " ";
+
+  const preemptiveSpan = document.getElementById("preemptive-choice");
+
+  if (algo.includes("priority")) {
+    preemptiveSpan.textContent = isPreemptive
+      ? "(Preemptive)"
+      : "(Non-Preemptive)";
+  } else {
+    preemptiveSpan.textContent = "";
+  }
 
   let results;
 
@@ -122,4 +136,9 @@ document.getElementById("process-btn").addEventListener("click", () => {
 
   renderTable(results);
   renderGantt(results.ganttChart);
+  lastGantt = results.ganttChart;
+});
+
+document.getElementById("sim-btn").addEventListener("click", () => {
+  simulateGantt(lastGantt);
 });

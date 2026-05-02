@@ -22,22 +22,18 @@ body {
   -webkit-font-smoothing: antialiased;
   padding: 40px 50px;
   touch-action: manipulation;
-
 }
 
-/* Remove default list styles */
 ul,
 ol {
   list-style: none;
 }
 
-/* Remove default link styles */
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* Improve media defaults */
 img,
 picture,
 video,
@@ -47,7 +43,6 @@ svg {
   max-width: 100%;
 }
 
-/* Form elements inherit font */
 input,
 button,
 textarea,
@@ -63,7 +58,6 @@ select {
   /* Colors */
   --color-bg: #fafafa;
   --color-primary: #1a1a1a;
-
 
   /* Typography */
   --font-sans: 'Roboto Mono', sans-serif;
@@ -128,18 +122,6 @@ button:hover {
   transform: scale(1.1);
 }
 
-select {
-  border: var(--border-sm) solid #7b7b7b;
-  border-radius: var(--border-lg);
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: white;
-  color: var(--color-primary);
-}
-
-option:hover {
-  background-color: #7b7b7b;
-}
-
 
 /* =========================
    UTILITIES
@@ -154,6 +136,27 @@ option:hover {
    CUSTOM COMPONENT STYLES
 ========================= */
 
+/* Scrollbar Custom Style */
+/* Works on Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+
+/* Dropdown List */
+select {
+  border: var(--border-sm) solid #7b7b7b;
+  border-radius: var(--border-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: white;
+  color: var(--color-primary);
+}
+
+option:hover {
+  background-color: #7b7b7b;
+}
+
+/* Input Fields */
 input[type="number"] {
   width: 100%;
   padding: var(--spacing-xs);

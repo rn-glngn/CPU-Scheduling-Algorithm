@@ -137,6 +137,12 @@ h4 {
   font-weight: bold;
 }
 
+#preemptive-choice {
+  font-size: 1.25rem;
+  color: #393939;
+  font-style: italic;
+}
+
 #result-table {
   border: none;
 }

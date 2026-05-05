@@ -32,6 +32,10 @@ main {
 
 select {
   margin-bottom: var(--spacing-sm);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
 }
 
 .user-input hr {

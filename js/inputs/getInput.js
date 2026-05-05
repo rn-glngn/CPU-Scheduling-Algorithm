@@ -23,7 +23,7 @@ addBtn.addEventListener("click", () => {
 });
 
 removeBtn.addEventListener("click", () => {
-  if (tableBody.rows.length > 2) {
+  if (tableBody.rows.length > 3) {
     tableBody.deleteRow(-1);
   }
 });

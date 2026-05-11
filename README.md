@@ -18,7 +18,7 @@ This project provides a straightforward and intuitive web-based tool for underst
 
 ## 🖥️ Screenshots
 
-![Sample](assets/CPU Scheduling Algorithm.png)
+![Sample-Screenshot](assets\CPU-Scheduling-Algorithm.png)
 
 ## 🛠️ Tech Stack
 

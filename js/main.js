@@ -40,10 +40,12 @@ export function toggleInputField(algo) {
 
 export function togglePreemptiveInput(algo) {
   const container = document.getElementById("preemptive-container");
+  const note = document.getElementById("prio-caption");
 
   const show = algo.includes("priority");
 
   container.style.display = show ? "block" : "none";
+  note.style.display = show ? "block" : "none";
 }
 
 // Show/hide input controls based on selected algorithm

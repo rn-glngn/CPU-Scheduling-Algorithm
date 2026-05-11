@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="globals.css">
   <link rel="stylesheet" href="style.css">
   <title>CPU Scheduling Algorithm</title>
@@ -13,82 +12,147 @@
 </head>
 
 <body>
+
+  <!-- =========================================================
+       HEADER SECTION
+          - Displays title and icon of the application
+       ========================================================= -->
   <header class="title-section">
     <img width="64" height="64" src="https://img.icons8.com/sf-black/64/electronics.png" alt="electronics" />
     <h1>CPU Scheduling Algorithm</h1>
   </header>
+
   <main>
+
+    <!-- =========================================================
+         USER INPUT SECTION
+            - Allows user to configure scheduling parameters
+         ========================================================= -->
     <div class="user-input card">
-      <!-- Choose the preferred scheduling algorithm -->
+
+      <!-- Scheduling algorithm selector -->
       <h2>Scheduling Algorithm</h2>
       <select name="sched-algo" id="sched-algo">
+
+        <!-- Different CPU scheduling algorithms -->
         <option value="fcfs">First-Come, First-Served (FCFS)</option>
         <option value="sjf">Shortest Job First (SJF)</option>
         <option value="srtf">Shortest Remaining Time First (SRTF)</option>
         <option value="rr">Round Robin (RR)</option>
         <option value="priority">Priority Scheduling</option>
         <option value="priority-rr">Priority Scheduling with Round Robin</option>
+
       </select>
+
+      <!-- Preemptive toggle (shown only for applicable algorithms) -->
       <div id="preemptive-container" style="display: none;">
         <label>
           <input type="checkbox" id="preemptive-toggle">
           Preemptive Mode
         </label>
       </div>
+
       <hr>
-      <!-- Additional input for the Round Robin (RR) -->
+
+      <!-- Time Quantum input (only visible for RR-based algorithms) -->
       <div id="time-quantum-container" style="display: none;">
         <h3>Time Quantum</h3>
         <input type="number" id="time-quantum" class="sched-algo" min="1" placeholder="2">
       </div>
+
+      <!-- =========================================================
+           PROCESS INPUT TABLE
+           Users define process details here:
+           - Arrival Time
+           - Burst Time
+           - Priority (optional)
+           ========================================================= -->
       <table id="input-table" class="sched-table">
         <thead>
           <tr>
             <th>Process</th>
             <th>Arrival Time</th>
             <th>Burst Time</th>
+
+            <!-- Priority column hidden for non-priority algorithms -->
             <th class="prio-col hide-col">Priority</th>
           </tr>
         </thead>
+
         <tbody id="table-body">
+
+          <!-- Default process rows -->
           <tr>
             <td>P1</td>
             <td><input type="number" placeholder="0" min="0"></td>
             <td><input type="number" placeholder="1" min="1"></td>
             <td class="prio-col hide-col"><input type="number" placeholder="0" min="0"></td>
           </tr>
+
           <tr>
             <td>P2</td>
             <td><input type="number" placeholder="0" min="0"></td>
             <td><input type="number" placeholder="1" min="1"></td>
             <td class="prio-col hide-col"><input type="number" placeholder="0" min="0"></td>
           </tr>
+
           <tr>
             <td>P3</td>
             <td><input type="number" placeholder="0" min="0"></td>
             <td><input type="number" placeholder="1" min="1"></td>
             <td class="prio-col hide-col"><input type="number" placeholder="0" min="0"></td>
           </tr>
+
         </tbody>
       </table>
+
+      <!-- Priority rule explanation -->
+      <p id="prio-caption">
+        * <u>lower</u> priority values = <u>higher</u> priority
+      </p>
+
+      <!-- Row control buttons -->
       <div class="action-btns">
         <button id="remove-row-btn">-</button>
         <button id="add-row-btn">+</button>
       </div>
+
+      <!-- Main action buttons -->
       <div class="btn-grp">
         <button id="clear-btn">Clear</button>
         <button id="process-btn">Process</button>
       </div>
+
     </div>
 
-    <!-- Results Section with Table, Metrics, and Gantt Chart -->
+    <!-- =========================================================
+         RESULTS SECTION
+         Displays computed scheduling output:
+         - Process table
+         - Metrics (avg waiting & turnaround)
+         - Gantt chart visualization
+         ========================================================= -->
     <div class="results card">
+
+      <!-- Selected algorithm display -->
       <div class="subtitle-section">
         <h3>Scheduling Algorithm</h3>
-        <h2 id="algo-choice">First-Come First Serve (FCFS) <span id="preemptive-choice"></span></h2>
+        <h2 id="algo-choice">
+          First-Come First Serve (FCFS)
+          <span id="preemptive-choice"></span>
+        </h2>
       </div>
+
+      <!-- =======================================================
+           OUTPUT TABLE
+           Shows computed results per process:
+           - Completion Time
+           - Waiting Time
+           - Turnaround Time
+           ======================================================= -->
       <div class="table-section">
         <h4>Process Scheduling Table</h4>
+
         <table id="result-table" class="sched-table">
           <thead>
             <tr>
@@ -101,7 +165,10 @@
               <th>Turnaround Time</th>
             </tr>
           </thead>
+
           <tbody>
+
+            <!-- Result rows (filled dynamically via JS) -->
             <tr>
               <td>P1</td>
               <td></td>
@@ -111,6 +178,7 @@
               <td></td>
               <td></td>
             </tr>
+
             <tr>
               <td>P2</td>
               <td></td>
@@ -120,6 +188,7 @@
               <td></td>
               <td></td>
             </tr>
+
             <tr>
               <td>P3</td>
               <td></td>
@@ -129,24 +198,45 @@
               <td></td>
               <td></td>
             </tr>
+
+            <!-- Average metrics row -->
             <tr id="metrics">
               <td colspan="5">Average</td>
               <td colspan="1"></td>
               <td colspan="1"></td>
             </tr>
+
           </tbody>
         </table>
       </div>
+
       <br>
+
+      <!-- =======================================================
+           GANTT CHART SECTION
+              - Visual representation of CPU execution order
+           ======================================================= -->
       <div class="gantt-chart-section">
         <h4>Gantt Chart</h4>
+
         <div id="gantt-chart-container">
+
+          <!-- Bars representing process execution -->
           <div id="gantt-bar-container"></div>
+
+          <!-- Timeline labels -->
           <div id="gantt-timeline"></div>
+
         </div>
-        <div class="sim-grp"><button id="sim-btn">Simulate</button></div>
+
+        <!-- Simulation trigger -->
+        <div class="sim-grp">
+          <button id="sim-btn">Simulate</button>
+        </div>
       </div>
+
     </div>
+
   </main>
 </body>
 

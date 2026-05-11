@@ -1,10 +1,59 @@
+// ======================================================================
+// PRIORITY + ROUND ROBIN SCHEDULING ALGORITHMS
+// ======================================================================
+//
+// This algorithm combines:
+// 1. Priority Scheduling
+//    - Processes are grouped based on priority.
+//    - Lower priority number = Higher priority.
+// 2. Round Robin (RR)
+//    - Processes within the same priority level are executed
+//      using a fixed Time Quantum.
+//
+// INCLUDED ALGORITHMS:
+// 1. priorityRRNonPreemptive()
+//    - Higher-priority queues execute first.
+//    - Once a queue starts executing, it continues using RR.
+//    - Running process is NOT interrupted by higher-priority arrivals.
+// 2. priorityRRPreemptive()
+//    - Uses RR inside each priority queue.
+//    - Running process CAN be interrupted if a higher-priority
+//      process arrives.
+//
+// INPUT FORMAT:
+// processes = [
+//   { id: "P1", arrival: 0, burst: 5, priority: 1 }
+//   { id: "P2", arrival: 0, burst: 3, priority: 2 }
+// ]
+//
+// timeQuantum = 2
+//
+// OUTPUT FORMAT:
+// Returns an object containing:
+// - ganttChart : Execution timeline data
+// - table      : Computed scheduling metrics per process
+// - averages   : Average waiting and turnaround times
+// ======================================================================
+
+// ======================================================================
+// PRIORITY ROUND ROBIN - NON PREEMPTIVE
+// ======================================================================
+
 export function priorityRRNonPreemptive(processes, timeQuantum) {
+  // Total number of processes
   const n = processes.length;
 
+  // Current CPU time
   let time = 0;
+
+  // Number of completed processes
   let completed = 0;
 
-  // normalize + sort by arrival
+  // ------------------------------------------------------------------
+  // Normalize process list
+  // Add remaining burst tracker
+  // Sort by arrival time
+  // ------------------------------------------------------------------
   const remaining = processes
     .map((p) => ({
       ...p,
@@ -13,9 +62,15 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
     }))
     .sort((a, b) => a.arrival - b.arrival);
 
+  // Stores execution timeline
   const ganttChart = [];
+
+  // Stores process metrics
   const tableMap = new Map();
 
+  // ------------------------------------------------------------------
+  // Initialize process table
+  // ------------------------------------------------------------------
   processes.forEach((p) => {
     tableMap.set(p.id, {
       id: p.id,
@@ -28,16 +83,31 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
     });
   });
 
-  // priority → queue
+  // ------------------------------------------------------------------
+  // Queue structure:
+  // priority number → array of processes
+  //
+  // Example:
+  // queues = {
+  //   1: [P1, P2],
+  //   2: [P3]
+  // }
+  // ------------------------------------------------------------------
   const queues = new Map();
 
+  // Tracks next arriving process index
   let i = 0;
 
+  // ------------------------------------------------------------------
+  // Helper function:
+  // Adds idle time into Gantt Chart
+  // ------------------------------------------------------------------
   function pushIdle(start, end) {
     if (end <= start) return;
 
     const last = ganttChart[ganttChart.length - 1];
 
+    // Merge consecutive idle blocks
     if (last && last.id === "IDLE") {
       last.end = end;
       last.duration = last.end - last.start;
@@ -52,26 +122,40 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
     });
   }
 
+  // ------------------------------------------------------------------
+  // MAIN SCHEDULING LOOP
+  // ------------------------------------------------------------------
   while (completed < n) {
-    // add arrivals
+    // --------------------------------------------------------------
+    // Add newly arrived processes to their priority queue
+    // --------------------------------------------------------------
     while (i < n && remaining[i].arrival <= time) {
       const p = remaining[i];
 
+      // Create queue if not existing
       if (!queues.has(p.priority)) {
         queues.set(p.priority, []);
       }
 
+      // Add process into its priority queue
       queues.get(p.priority).push(p);
+
       i++;
     }
 
-    // get highest priority queue
+    // --------------------------------------------------------------
+    // Find highest-priority queue with available processes
+    // --------------------------------------------------------------
     const available = [...queues.keys()]
       .filter((k) => queues.get(k).length > 0)
-      .sort((a, b) => a - b); // lower = higher priority
+      .sort((a, b) => a - b); // lower number = higher priority
 
+    // --------------------------------------------------------------
+    // CPU IDLE CONDITION
+    // --------------------------------------------------------------
     if (available.length === 0) {
       const nextArrival = i < n ? remaining[i].arrival : undefined;
+
       if (nextArrival === undefined) break;
 
       if (nextArrival > time) {
@@ -82,13 +166,20 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
       continue;
     }
 
+    // Highest priority queue
     const priority = available[0];
+
     const queue = queues.get(priority);
+
+    // Select next process using RR
     const current = queue.shift();
 
     const startTime = time;
 
-    // execute (RR)
+    // --------------------------------------------------------------
+    // ROUND ROBIN EXECUTION
+    // Execute up to timeQuantum
+    // --------------------------------------------------------------
     let execTime = 0;
 
     while (execTime < timeQuantum && current.remaining > 0) {
@@ -96,7 +187,9 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
       time++;
       execTime++;
 
-      // arrivals during execution
+      // ----------------------------------------------------------
+      // Add newly arrived processes during execution
+      // ----------------------------------------------------------
       while (i < n && remaining[i].arrival <= time) {
         const p = remaining[i];
 
@@ -105,11 +198,14 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
         }
 
         queues.get(p.priority).push(p);
+
         i++;
       }
     }
 
-    // push gantt segment
+    // --------------------------------------------------------------
+    // Add execution segment to Gantt Chart
+    // --------------------------------------------------------------
     ganttChart.push({
       id: current.id,
       start: startTime,
@@ -117,26 +213,43 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
       duration: time - startTime,
     });
 
-    // requeue or finish
+    // --------------------------------------------------------------
+    // Requeue unfinished process
+    // OR finalize completed process
+    // --------------------------------------------------------------
     if (current.remaining > 0) {
+      // Put back at end of queue
       queue.push(current);
     } else {
       current.completed = true;
       completed++;
 
       const p = tableMap.get(current.id);
+
+      // Completion Time
       p.completion = time;
+
+      // Turnaround Time
       p.turnaround = p.completion - p.arrival;
+
+      // Waiting Time
       p.waiting = p.turnaround - p.burst;
     }
   }
 
+  // Convert Map → Array
   const table = Array.from(tableMap.values());
 
+  // ------------------------------------------------------------------
+  // Compute averages
+  // ------------------------------------------------------------------
   const avgWaiting = table.reduce((sum, p) => sum + p.waiting, 0) / n;
 
   const avgTurnaround = table.reduce((sum, p) => sum + p.turnaround, 0) / n;
 
+  // ------------------------------------------------------------------
+  // FINAL OUTPUT
+  // ------------------------------------------------------------------
   return {
     ganttChart,
     table,
@@ -147,12 +260,25 @@ export function priorityRRNonPreemptive(processes, timeQuantum) {
   };
 }
 
+// ======================================================================
+// PRIORITY ROUND ROBIN - PREEMPTIVE
+// ======================================================================
+
 export function priorityRRPreemptive(processes, timeQuantum) {
+  // Total number of processes
   const n = processes.length;
 
+  // Current CPU time
   let time = 0;
+
+  // Completed process counter
   let completed = 0;
 
+  // ------------------------------------------------------------------
+  // Clone process list
+  // Add remaining burst tracking
+  // Sort by arrival
+  // ------------------------------------------------------------------
   const remaining = processes
     .map((p) => ({
       ...p,
@@ -161,9 +287,15 @@ export function priorityRRPreemptive(processes, timeQuantum) {
     }))
     .sort((a, b) => a.arrival - b.arrival);
 
+  // Stores execution segments
   const ganttChart = [];
+
+  // Stores scheduling metrics
   const tableMap = new Map();
 
+  // ------------------------------------------------------------------
+  // Initialize process table
+  // ------------------------------------------------------------------
   processes.forEach((p) => {
     tableMap.set(p.id, {
       id: p.id,
@@ -176,14 +308,22 @@ export function priorityRRPreemptive(processes, timeQuantum) {
     });
   });
 
-  const queues = new Map(); // priority → queue
+  // Priority queues
+  const queues = new Map();
+
+  // Arrival tracker
   let i = 0;
 
+  // ------------------------------------------------------------------
+  // Helper function:
+  // Adds idle CPU segment
+  // ------------------------------------------------------------------
   function pushIdle(start, end) {
     if (end <= start) return;
 
     const last = ganttChart[ganttChart.length - 1];
 
+    // Merge consecutive idle blocks
     if (last && last.id === "IDLE") {
       last.end = end;
       last.duration = last.end - last.start;
@@ -198,8 +338,13 @@ export function priorityRRPreemptive(processes, timeQuantum) {
     });
   }
 
+  // ------------------------------------------------------------------
+  // MAIN LOOP
+  // ------------------------------------------------------------------
   while (completed < n) {
-    // add arrivals
+    // --------------------------------------------------------------
+    // Add arriving processes
+    // --------------------------------------------------------------
     while (i < n && remaining[i].arrival <= time) {
       const p = remaining[i];
 
@@ -208,38 +353,56 @@ export function priorityRRPreemptive(processes, timeQuantum) {
       }
 
       queues.get(p.priority).push(p);
+
       i++;
     }
 
-    // find highest priority
+    // --------------------------------------------------------------
+    // Find highest-priority queue
+    // --------------------------------------------------------------
     const available = [...queues.keys()]
       .filter((k) => queues.get(k).length > 0)
       .sort((a, b) => a - b);
 
+    // --------------------------------------------------------------
+    // CPU IDLE CONDITION
+    // --------------------------------------------------------------
     if (available.length === 0) {
       const nextArrival = i < n ? remaining[i].arrival : undefined;
+
       if (nextArrival === undefined) break;
 
       if (nextArrival > time) {
         pushIdle(time, nextArrival);
         time = nextArrival;
       }
+
       continue;
     }
 
+    // Current highest priority
     const priority = available[0];
+
     const queue = queues.get(priority);
+
+    // Get next RR process
     const current = queue.shift();
 
     let startTime = time;
+
     let execTime = 0;
 
+    // --------------------------------------------------------------
+    // Execute process using Round Robin
+    // --------------------------------------------------------------
     while (execTime < timeQuantum && current.remaining > 0) {
       current.remaining--;
       time++;
       execTime++;
 
-      // check new arrivals
+      // ----------------------------------------------------------
+      // Add newly arrived processes
+      // ----------------------------------------------------------
       while (i < n && remaining[i].arrival <= time) {
         const p = remaining[i];
 
@@ -248,20 +411,27 @@ export function priorityRRPreemptive(processes, timeQuantum) {
         }
 
         queues.get(p.priority).push(p);
+
         i++;
       }
 
-      // 🔥 PREEMPTION CHECK
+      // ----------------------------------------------------------
+      // PREEMPTION CHECK
+      // ----------------------------------------------------------
+      // Interrupt current process if a higher-priority queue exists
       const higherExists = [...queues.keys()].some(
         (k) => k < priority && queues.get(k).length > 0,
       );
 
       if (higherExists) {
-        break; // interrupt immediately
+        // Stop execution immediately
+        break;
       }
     }
 
-    // push gantt segment
+    // --------------------------------------------------------------
+    // Save execution segment
+    // --------------------------------------------------------------
     ganttChart.push({
       id: current.id,
       start: startTime,
@@ -269,29 +439,46 @@ export function priorityRRPreemptive(processes, timeQuantum) {
       duration: time - startTime,
     });
 
-    // requeue or finish
+    // --------------------------------------------------------------
+    // Requeue unfinished process
+    // OR finalize completed process
+    // --------------------------------------------------------------
     if (current.remaining > 0) {
       if (!queues.has(priority)) {
         queues.set(priority, []);
       }
+
       queues.get(priority).push(current);
     } else {
       current.completed = true;
       completed++;
 
       const p = tableMap.get(current.id);
+
+      // Completion Time
       p.completion = time;
+
+      // Turnaround Time
       p.turnaround = p.completion - p.arrival;
+
+      // Waiting Time
       p.waiting = p.turnaround - p.burst;
     }
   }
 
+  // Convert Map → Array
   const table = Array.from(tableMap.values());
 
+  // ------------------------------------------------------------------
+  // Compute averages
+  // ------------------------------------------------------------------
   const avgWaiting = table.reduce((sum, p) => sum + p.waiting, 0) / n;
 
   const avgTurnaround = table.reduce((sum, p) => sum + p.turnaround, 0) / n;
 
+  // ------------------------------------------------------------------
+  // FINAL OUTPUT
+  // ------------------------------------------------------------------
   return {
     ganttChart,
     table,

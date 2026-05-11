@@ -1,15 +1,18 @@
 @import url('globals.css');
 
 
+/* =========================================================
+   HEADER SECTION
+   ========================================================= */
 header {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
 }
 
-
-/* Scheduling Cards */
-
+/* =========================================================
+   MAIN LAYOUT STRUCTURE
+   ========================================================= */
 main {
   padding: var(--spacing-md) var(--spacing-lg);
   display: grid;
@@ -18,7 +21,9 @@ main {
   align-items: start;
 }
 
-
+/* =========================================================
+   CARD COMPONENT
+   ========================================================= */
 .card {
   background-color: white;
   padding: var(--spacing-lg);
@@ -30,21 +35,26 @@ main {
   overflow: auto;
 }
 
-/* User Input */
 
+/* =========================================================
+   INPUT CONTROLS
+   ========================================================= */
+
+/* Dropdown selector for scheduling algorithm */
 select {
   margin-bottom: var(--spacing-sm);
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-
 }
 
+/* Divider line spacing */
 .user-input hr {
   margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-md);
 }
 
+/* Time quantum input (Round Robin based algorithms) */
 #time-quantum {
   width: 50%;
   text-align: left;
@@ -56,10 +66,23 @@ select {
   color: var(--color-primary);
 }
 
+/* Process input table spacing */
 #input-table {
   margin-bottom: var(--spacing-sm);
 }
 
+/* Priority explanation text (hidden by default) */
+#prio-caption {
+  font-size: 0.75rem;
+  color: #7b7b7b;
+  font-style: italic;
+  display: none;
+}
+
+
+/* =========================================================
+   ROW CONTROL BUTTONS (- / +)
+   ========================================================= */
 .action-btns {
   display: flex;
   justify-content: flex-end;
@@ -75,19 +98,24 @@ select {
   color: var(--color-primary);
 }
 
+/* Hover effect for row controls */
 .action-btns button:hover {
   background-color: var(--color-primary);
   color: white;
 }
 
+
+/* =========================================================
+   MAIN ACTION BUTTON GROUP (Clear / Process)
+   ========================================================= */
 .btn-grp {
   display: flex;
-  gap: var(--spacing-sm);
-  justify-content: center;
   gap: var(--spacing-lg);
+  justify-content: center;
   margin-top: var(--spacing-xl);
 }
 
+/* Clear button styling */
 .btn-grp #clear-btn {
   border: var(--border-xs) solid var(--color-primary);
   background-color: white;
@@ -95,8 +123,9 @@ select {
 }
 
 
-/* Scheduling Table Styles */
-
+/* =========================================================
+   SHARED TABLE STYLING
+   ========================================================= */
 .sched-table {
   width: 100%;
   border-collapse: collapse;
@@ -106,6 +135,7 @@ select {
   overflow: auto;
 }
 
+/* Table header styling */
 .sched-table thead {
   border-bottom: var(--color-primary) solid;
   border-width: var(--border-md);
@@ -113,14 +143,17 @@ select {
   font-style: italic;
 }
 
+/* Cell borders */
 .sched-table td,
 .sched-table th {
   border: var(--border-xs) solid var(--color-primary);
   border-right: var(--border-sm) solid;
 }
 
-/* Results Section */
 
+/* =========================================================
+   RESULTS HEADER SECTION
+   ========================================================= */
 .subtitle-section {
   margin-bottom: var(--spacing-lg);
   border-bottom: var(--border-xs) solid #7b7b7b;
@@ -137,19 +170,20 @@ select {
   font-weight: bolder;
 }
 
-
-/* Results Scheduling Table */
-
 h4 {
   font-weight: bold;
 }
 
+/* Sub-label for preemptive mode indicator */
 #preemptive-choice {
   font-size: 1.25rem;
   color: #393939;
   font-style: italic;
 }
 
+/* =========================================================
+   RESULT TABLE (OUTPUT TABLE)
+   ========================================================= */
 #result-table {
   border: none;
 }
@@ -167,6 +201,7 @@ h4 {
   font-size: 0.9rem;
 }
 
+/* Strong borders on first/last columns */
 #result-table td:first-child {
   border-left: var(--border-md) solid var(--color-primary);
 }
@@ -176,14 +211,17 @@ h4 {
   border-right: var(--border-md) solid var(--color-primary);
 }
 
+/* Header border emphasis */
 #result-table thead {
   border: var(--border-md) solid var(--color-primary);
 }
 
+/* Separator before metrics row */
 #result-table tbody tr:last-child {
   border-top: var(--border-md) solid var(--color-primary);
 }
 
+/* Metrics row styling */
 #result-table tr:last-child td:first-child {
   border: none;
 }
@@ -205,13 +243,17 @@ h4 {
 }
 
 
-/* Gantt Chart Section */
+/* =========================================================
+   GANTT CHART SECTION
+   ========================================================= */
 
+/* Enables horizontal scrolling if chart overflows */
 .table-section,
 #gantt-chart-container {
   overflow-x: auto;
 }
 
+/* Main bar container */
 #gantt-bar-container {
   display: flex;
   width: 100%;
@@ -219,6 +261,7 @@ h4 {
   border: var(--border-md) solid var(--color-primary);
 }
 
+/* Individual process blocks in Gantt chart */
 .gantt-block {
   display: flex;
   align-items: center;
@@ -231,6 +274,7 @@ h4 {
   transition: all 0.3s ease;
 }
 
+/* Timeline labels under Gantt chart */
 #gantt-timeline {
   display: flex;
   width: 100%;
@@ -239,6 +283,8 @@ h4 {
   position: relative;
 }
 
+
+/* Simulation button wrapper */
 .sim-grp {
   font-size: 0.75rem;
   padding: var(--spacing-sm) var(--spacing-md);
@@ -247,7 +293,11 @@ h4 {
 }
 
 
-/* Media Queries */
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+/* Tablet screens */
 @media (max-width: 1024px) {
   main {
     grid-template-columns: 1fr;
@@ -267,6 +317,7 @@ h4 {
   }
 }
 
+/* Mobile screens */
 @media (max-width: 768px) {
   body {
     padding: 20px;
@@ -299,6 +350,8 @@ h4 {
 
   .btn-grp {
     flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
   }
 
   .action-btns {
@@ -307,6 +360,7 @@ h4 {
   }
 }
 
+/* Small mobile screens */
 @media (max-width: 480px) {
   .subtitle-section h2 {
     font-size: 1rem;

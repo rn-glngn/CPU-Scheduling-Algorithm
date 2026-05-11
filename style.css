@@ -13,8 +13,9 @@ header {
 main {
   padding: var(--spacing-md) var(--spacing-lg);
   display: grid;
-  grid-template-columns: 35% 65%;
-  column-gap: var(--spacing-lg);
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--spacing-lg);
+  align-items: start;
 }
 
 
@@ -23,10 +24,11 @@ main {
   padding: var(--spacing-lg);
   border-radius: var(--border-lg);
   box-shadow: 0 0px 6px rgba(0, 0, 0, 0.5);
-  height: 100%;
-  min-height: 500px;
-}
 
+  min-height: 500px;
+  height: auto;
+  overflow: auto;
+}
 
 /* User Input */
 
@@ -101,6 +103,7 @@ select {
   margin-top: 10px;
   border: var(--border-md) solid var(--color-primary);
   text-align: center;
+  overflow: auto;
 }
 
 .sched-table thead {
@@ -204,12 +207,16 @@ h4 {
 
 /* Gantt Chart Section */
 
+.table-section,
+#gantt-chart-container {
+  overflow-x: auto;
+}
+
 #gantt-bar-container {
   display: flex;
   width: 100%;
   height: 50px;
   border: var(--border-md) solid var(--color-primary);
-  overflow: hidden;
 }
 
 .gantt-block {
@@ -237,4 +244,83 @@ h4 {
   padding: var(--spacing-sm) var(--spacing-md);
   display: flex;
   justify-content: flex-end;
+}
+
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  main {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+  #time-quantum {
+    width: 100%;
+  }
+
+  .action-btns {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  main {
+    padding: var(--spacing-sm);
+  }
+
+  .card {
+    padding: var(--spacing-md);
+  }
+
+  .subtitle-section h2 {
+    font-size: 1.25rem;
+  }
+
+  .sched-table {
+    font-size: 0.85rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .btn-grp {
+    flex-direction: column;
+  }
+
+  .action-btns {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .subtitle-section h2 {
+    font-size: 1rem;
+  }
+
+  .sched-table {
+    font-size: 0.75rem;
+  }
+
+  h4 {
+    font-size: 0.9rem;
+  }
+
+  #gantt-bar-container {
+    height: 40px;
+  }
 }

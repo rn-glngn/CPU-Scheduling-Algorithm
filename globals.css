@@ -136,13 +136,6 @@ button:hover {
    CUSTOM COMPONENT STYLES
 ========================= */
 
-/* Scrollbar Custom Style */
-/* Works on Chrome, Edge, Safari */
-::-webkit-scrollbar {
-  width: 1px;
-  height: 1px;
-}
-
 /* Dropdown List */
 select {
   border: var(--border-sm) solid #7b7b7b;

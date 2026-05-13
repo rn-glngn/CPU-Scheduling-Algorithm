@@ -4,11 +4,11 @@
 
 [Live Demonstration](https://rn-glngn.github.io/CPU-Scheduling-Algorithm/)
 
-## 📖 Overview
+## Overview
 
 This project provides a straightforward and intuitive web-based tool for understanding the fundamental concepts of CPU scheduling. It allows users to simulate and visualize the execution of different scheduling algorithms, such as First-Come, First-Served (FCFS), Shortest Job First (SJF), Priority Scheduling, and Round Robin. Designed for educational purposes, it helps users grasp how processes are managed by the CPU and analyze performance metrics like waiting time and turnaround time.
 
-## ✨ Features
+## Features
 
 - **Multiple Algorithms**: Simulate various CPU scheduling algorithms.
 - **Gantt Chart Visualization**: Visually represent process execution timelines.

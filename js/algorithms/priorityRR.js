@@ -37,7 +37,7 @@
 
 // ======================================================================
 // PRIORITY ROUND ROBIN - NON PREEMPTIVE
-// ======================================================================
+//======================================================================
 
 export function priorityRRNonPreemptive(processes, timeQuantum) {
   // Total number of processes

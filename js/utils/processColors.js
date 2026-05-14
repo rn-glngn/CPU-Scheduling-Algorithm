@@ -10,11 +10,6 @@
 // • Colors remain consistent across renders/simulations
 // • Improves readability of scheduling visualization
 //
-// Example:
-// P1 → teal
-// P2 → violet
-// P3 → amber
-//
 // ======================================================================
 
 // Stores generated colors

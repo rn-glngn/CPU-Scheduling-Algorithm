@@ -23,10 +23,7 @@
 // INPUT FORMAT:
 // results = {
 //   table: [...],
-//   averages: {
-//     waiting,
-//     turnaround
-//   }
+//   averages: { waiting, turnaround }
 // }
 // ================================================================
 export function renderTable(results) {

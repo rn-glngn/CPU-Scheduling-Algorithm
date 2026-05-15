@@ -3,6 +3,8 @@
 **An interactive web application to visualize and simulate various CPU scheduling algorithms.**
 
 [Live Demonstration](https://rn-glngn.github.io/CPU-Scheduling-Algorithm/)
+[Case Study Paper](https://github.com/rn-glngn/CPU-Scheduling-Algorithm/blob/d2c757f11dc4216c08618b3f8d0ac05c9ccb8730/assets/Golingan%2C%20Reena%20Angela%20BSCS-3B%20-%20OS%20Case%20Study%20Paper.pdf)
+[Video Presentation](https://drive.google.com/file/d/1KwdSg7abXe8z3Izi01CdfEd8Rd4oJ-JM/view?usp=sharing)
 
 ## Overview
 
